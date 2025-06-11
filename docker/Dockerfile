@@ -11,18 +11,13 @@ RUN apt update && apt install -y \
     libseccomp-dev libcap-dev libsqlite3-dev software-properties-common
 
 COPY ./node-source /sugarchain
+COPY ./docker/entrypoint.sh /sugarchain/entrypoint.sh
 
 WORKDIR /sugarchain
 
-RUN chmod +x autogen.sh
-
-RUN ./autogen.sh && \
-    ./configure --without-gui && \
-    make -j$(nproc) && \
-    make install
+RUN chmod +x entrypoint.sh && ./entrypoint.sh
 
 RUN mkdir -p /root/.sugarchain
-
 COPY ./docker/sugarchain.conf /root/.sugarchain/sugarchain.conf
 
 EXPOSE 34230
