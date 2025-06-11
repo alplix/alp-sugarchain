@@ -10,18 +10,25 @@ RUN apt update && apt install -y \
     libminiupnpc-dev libzmq3-dev libnatpmp-dev \
     libseccomp-dev libcap-dev libsqlite3-dev software-properties-common
 
+# Sugarchain kaynak kodunu kopyala
 COPY ./node-source /sugarchain
+
+# Çalışma dizinine geç
 WORKDIR /sugarchain
 
-# ✅ BURASI ÖNEMLİ: İzin veriyoruz
+# 🔧 Bu satır ÇOK önemli: autogen.sh'a çalıştırma izni veriyoruz
 RUN chmod +x autogen.sh && \
     ./autogen.sh && \
     ./configure --without-gui && \
     make -j$(nproc) && \
     make install
 
+# Config klasörünü oluştur ve örnek config ekle
 RUN mkdir -p /root/.sugarchain
 COPY ./docker/sugarchain.conf /root/.sugarchain/sugarchain.conf
 
+# Portları aç
 EXPOSE 34230
+
+# Node'u başlat
 CMD ["sugarchaind", "-printtoconsole"]
