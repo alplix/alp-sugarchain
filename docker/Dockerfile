@@ -15,15 +15,12 @@ COPY ./docker/sugarchain.conf /sugarchain/sugarchain.conf
 
 WORKDIR /sugarchain
 
-# ✅ autogen.sh içerikleri burada yeniden oluşturuluyor
-RUN echo '#!/bin/sh' > autogen.sh && \
-    echo 'set -e' >> autogen.sh && \
-    echo 'autoreconf -vif' >> autogen.sh && \
-    chmod +x autogen.sh && \
-    ./autogen.sh && \
-    ./configure --without-gui && \
-    make -j$(nproc) && \
-    make install
+# 👇 FIX: make chmod a separate RUN so it takes effect
+RUN chmod +x autogen.sh
+RUN ./autogen.sh
+RUN ./configure --without-gui
+RUN make -j$(nproc)
+RUN make install
 
 RUN mkdir -p /root/.sugarchain
 RUN cp /sugarchain/sugarchain.conf /root/.sugarchain/sugarchain.conf
