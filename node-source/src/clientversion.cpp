@@ -12,12 +12,12 @@
  * for both bitcoind and bitcoin-qt, to make it harder for attackers to
  * target servers or GUI users specifically.
  */
-const std::string CLIENT_NAME("Yumekawa");
+const std::string CLIENT_NAME("alp-sugarchain");
 
 /**
  * Client version number
  */
-#define CLIENT_VERSION_SUFFIX ""
+#define CLIENT_VERSION_SUFFIX "alplix"
 
 
 /**
@@ -79,7 +79,7 @@ static std::string FormatVersion(int nVersion)
 
 std::string FormatFullVersion()
 {
-    return CLIENT_BUILD;
+    return "alp-sugarchain node v1-xalplix (custom build)";
 }
 
 /** 

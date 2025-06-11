@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  sugarchain:
+    build: .
+    container_name: sugarchain-node
+    ports:
+      - "34230:34230"  # P2P port (diğer node'larla bağlantı)
+    volumes:
+      - sugardata:/root/.sugarchain  # Blokzincir verileri burada saklanır
+    restart: unless-stopped
+
+volumes:
+  sugardata:
