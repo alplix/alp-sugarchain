@@ -13,10 +13,15 @@ RUN apt update && apt install -y \
 COPY ./node-source /sugarchain
 WORKDIR /sugarchain
 
-RUN ./autogen.sh && ./configure --without-gui && make -j$(nproc) && make install
+# ✅ BURASI ÖNEMLİ: İzin veriyoruz
+RUN chmod +x autogen.sh && \
+    ./autogen.sh && \
+    ./configure --without-gui && \
+    make -j$(nproc) && \
+    make install
 
 RUN mkdir -p /root/.sugarchain
 COPY ./docker/sugarchain.conf /root/.sugarchain/sugarchain.conf
 
-EXPOSE 34230 34229
+EXPOSE 34230
 CMD ["sugarchaind", "-printtoconsole"]
