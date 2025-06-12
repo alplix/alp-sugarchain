@@ -12,7 +12,7 @@ import hmac
 
 if len(sys.argv) < 2:
     sys.stderr.write('Please include username as an argument.\n')
-    sys.exit(0)
+    sys.exit(1)
 
 username = sys.argv[1]
 

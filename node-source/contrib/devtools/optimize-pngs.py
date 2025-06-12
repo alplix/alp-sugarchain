@@ -49,7 +49,7 @@ for folder in folders:
                         stderr=subprocess.STDOUT).rstrip('\n')
             except:
                 print "pngcrush is not installed, aborting..."
-                sys.exit(0)
+                sys.exit(1)
         
             #verify
             if "Not a PNG file" in subprocess.check_output([pngcrush, "-n", "-v", file_path], stderr=subprocess.STDOUT):
